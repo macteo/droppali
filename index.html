@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no"
+    />
+    <meta name="author" content="Matteo Gavagnin" />
+    <meta
+      name="description"
+      content="Serverless WebRTC P2P transfer"
+    />
+    <link href="images/favicon.png" rel="icon" type="image/png" />
+    <link rel="stylesheet" href="site.css" />
+    <title>Droppa.li</title>
+  </head>
+  <body>
+    <header>
+      <h1>🦉 Droppa.li<sup>0.1.0</sup></h1>
+      <h2>Serverless WebRTC for secure P2P.</h2>
+    </header>
+
+    <main>
+        <div id="room-num"></div>
+        <p id="peer-info">
+            Right now youʼre the only person with the page open, but you can cheat
+            and just open this URL in another tab to see what itʼs like with others.
+        </p>
+        <p>
+            <button id="pasteButton">Send Clipboard</button>
+        </p>
+        <div class="wrapper" style="width: 100%;">
+            <textarea rows="15" id="textarea" placeholder="Write here to send text"></textarea>
+            <button id="sendButton">Send</button>
+        </div>
+    </main>
+    <script src="build.js"></script>
+  </body>
+</html>
