@@ -17,7 +17,7 @@
   </head>
   <body>
     <header>
-      <h1>🦉 Droppa.li<sup>0.1.0</sup></h1>
+      <h1>🪂 Droppa.li<sup>0.1.0</sup></h1>
       <h2>Serverless WebRTC for secure P2P.</h2>
     </header>
 
@@ -33,6 +33,14 @@
         <div class="wrapper" style="width: 100%;">
             <textarea rows="15" id="textarea" placeholder="Write here to send text"></textarea>
             <button id="sendButton">Send</button>
+        </div>
+        <div>
+          <div id="drop_zone" ondrop="dropHandler(event);" ondragover="dragOverHandler(event);">
+            <p>Drag one or more files to this Drop Zone ...</p>
+          </div>
+
+          <img id="picture" />
+          <button id="sendPicButton">Send</button>
         </div>
     </main>
     <script src="build.js"></script>

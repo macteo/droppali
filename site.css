@@ -130,7 +130,22 @@
 
   #textarea {
       width: 100%;
+      font-size: 2rem;
   }
+
+  #picture {
+    width: 100px;
+    height: 100px;
+  }
+
+  #drop_zone {    
+    width: 110px;    
+    height: 110px;    
+    padding: 10px;    
+    text-align: center;    
+    margin: 0 auto;    
+    border: 1px solid #aaaaaa;    
+}
 
   @media (max-width: 980px) {
     html {
