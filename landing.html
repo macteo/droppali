@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Droppa.li - Secure P2P Sharing</title>
+    <link href="images/favicon.png" rel="icon" />
+    <link rel="stylesheet" href="landing.css" />
+  </head>
+  <body>
+    <header>
+      <h1>🪂 Droppa.li</h1>
+    </header>
+    <main>
+      <section class="intro">
+        <p>
+          Droppa.li lets you share files and clipboard text directly with peers using WebRTC.
+          No server in the middle, just quick and private transfers.
+        </p>
+      </section>
+      <section class="features">
+        <ul class="feature-list">
+          <li><img src="images/hand.png" alt="hand" />Easy drag-and-drop file sharing</li>
+          <li><img src="images/hand.png" alt="hand" />Send clipboard text with one click</li>
+          <li><img src="images/hand.png" alt="hand" />Peer-to-peer connections for privacy</li>
+        </ul>
+      </section>
+      <section class="room-gen">
+        <button id="gen-room">✨ Create Magic Room ✨</button>
+        <p id="room-link" class="hidden"></p>
+      </section>
+      <section class="join">
+        <p><a href="index.html">Join an existing room</a></p>
+      </section>
+    </main>
+    <footer>
+      &copy; 2025 Droppa.li
+    </footer>
+    <script>
+      const words = [
+        'orange','panda','sparkle','rocket','rainbow','banana','unicorn','taco',
+        'kebab','piano','pizza','coffee','bubble','cloud','dragon','salsa',
+        'zebra','fluffy','ninja','pickle'
+      ];
+      const button = document.getElementById('gen-room');
+      const linkEl = document.getElementById('room-link');
+      function randomName() {
+        const arr = [];
+        for (let i = 0; i < 3; i++) {
+          arr.push(words[Math.floor(Math.random() * words.length)]);
+        }
+        return arr.join('-');
+      }
+      button.addEventListener('click', () => {
+        const name = randomName();
+        const base = window.location.href.replace(/landing\.html.*/, '');
+        const url = `${base}index.html?${name}`;
+        navigator.clipboard.writeText(url).then(() => {
+          linkEl.textContent = `Link copied! ${url}`;
+          linkEl.classList.remove('hidden');
+        }).catch(() => {
+          linkEl.textContent = url;
+          linkEl.classList.remove('hidden');
+        });
+      });
+    </script>
+  </body>
+</html>
