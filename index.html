@@ -1,48 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, user-scalable=no"
-    />
-    <meta name="author" content="Matteo Gavagnin" />
-    <meta
-      name="description"
-      content="Serverless WebRTC P2P transfer"
-    />
-    <link href="images/favicon.png" rel="icon" type="image/png" />
-    <link rel="stylesheet" href="site.css" />
-    <title>Droppa.li</title>
-  </head>
-  <body>
-    <header>
-      <h1>🪂 Droppa.li<sup>0.1.0</sup></h1>
-      <h2>Serverless WebRTC for secure P2P.</h2>
-    </header>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Serverless WebRTC P2P transfer" />
+  <link href="images/favicon.png" rel="icon" type="image/png" />
+  <link rel="stylesheet" href="landing.css" />
+  <link rel="stylesheet" href="site.css" />
+  <title>Droppa.li - Secure P2P Sharing</title>
+</head>
+<body>
+  <header>
+    <h1>🪂 Droppa.li</h1>
+  </header>
+  <main>
+    <div id="intro">
+      <section class="intro-text">
+        <p>Droppa.li lets you share files and clipboard text directly with peers using WebRTC. No server ever stores your data.</p>
+        <p>Random room links keep your transfers private. Share the generated link with your friend and you are ready.</p>
+      </section>
+      <section class="how">
+        <h2>How it works</h2>
+        <p>Your browser opens an encrypted peer-to-peer channel using WebRTC. Files and messages never touch a server, and rooms disappear when everyone leaves.</p>
+      </section>
+      <section class="room-gen">
+        <button id="gen-room">Create Magic Room</button>
+        <p id="room-link" class="hidden"></p>
+      </section>
+    </div>
 
-    <main>
-        <div id="room-num"></div>
-        <p id="peer-info">
-            Right now youʼre the only person with the page open, but you can cheat
-            and just open this URL in another tab to see what itʼs like with others.
-        </p>
-        <p>
-            <button id="pasteButton">Send Clipboard</button>
-        </p>
-        <div class="wrapper" style="width: 100%;">
-            <textarea rows="15" id="textarea" placeholder="Write here to send text"></textarea>
-            <button id="sendButton">Send</button>
+    <div id="room-ui" class="hidden">
+      <div id="room-num"></div>
+      <p id="peer-info">Right now youʼre the only person with the page open, but you can cheat and open this URL in another tab to try.</p>
+      <p><button id="pasteButton">Send Clipboard</button></p>
+      <div class="wrapper" style="width:100%">
+        <textarea rows="15" id="textarea" placeholder="Write here to send text"></textarea>
+        <button id="sendButton">Send</button>
+      </div>
+      <div>
+        <div id="drop_zone" ondrop="dropHandler(event);" ondragover="dragOverHandler(event);">
+          <p>Drag one or more files to this Drop Zone ...</p>
         </div>
-        <div>
-          <div id="drop_zone" ondrop="dropHandler(event);" ondragover="dragOverHandler(event);">
-            <p>Drag one or more files to this Drop Zone ...</p>
-          </div>
+        <img id="picture" />
+        <button id="sendPicButton">Send</button>
+      </div>
+    </div>
+  </main>
+  <footer>&copy; 2025 Droppa.li</footer>
+  <script type="module" src="site.js"></script>
+  <script>
+    const words = [
+      'alpine','amber','apple','arrow','atlas','aurora','avocado','azure','beacon','birch','breeze','bubble','canyon','caramel','castle','cedar','charm','circle','comet','cookie','cosmos','craft','crystal','delta','dolphin','eclipse','ember','feather','fiesta','forest','galaxy','glacier','harmony','horizon','island','ivory','jazz','lagoon','lantern','legacy','liberty','lizard','meadow','melody','misty','nebula','ocean','olive','orchid','panda','pebble','pepper','photon','pillow','pixel','plume','prism','puzzle','quartz','radar','rainbow','ripple','river','rocket','salsa','satin','shadow','shimmer','silky','skyline','snowflake','sparkle','spiral','sprite','squid','sunset','thunder','timber','titan','toffee','tulip','twinkle','velvet','vertex','wander','waterfall','whisper','wildcat','willow','wonder','zephyr','zipper','zodiac'
+    ];
+    const intro = document.getElementById('intro');
+    const roomUI = document.getElementById('room-ui');
+    const button = document.getElementById('gen-room');
+    const linkEl = document.getElementById('room-link');
+    const hasRoom = window.location.search.length > 1;
 
-          <img id="picture" />
-          <button id="sendPicButton">Send</button>
-        </div>
-    </main>
-    <script src="build.js"></script>
-  </body>
+    if (hasRoom) {
+      intro.style.display = 'none';
+      roomUI.classList.remove('hidden');
+    }
+
+    function randomName() {
+      const arr = [];
+      for (let i = 0; i < 3; i++) {
+        arr.push(words[Math.floor(Math.random() * words.length)]);
+      }
+      return arr.join('-');
+    }
+
+    button.addEventListener('click', () => {
+      const name = randomName();
+      const base = window.location.origin + window.location.pathname;
+      const url = `${base}?${name}`;
+      navigator.clipboard.writeText(url).then(() => {
+        linkEl.textContent = `Link copied! ${url}`;
+        linkEl.classList.remove('hidden');
+      }).catch(() => {
+        linkEl.textContent = url;
+        linkEl.classList.remove('hidden');
+      });
+    });
+  </script>
+</body>
 </html>

@@ -16,8 +16,11 @@ let room
 let sendText
 let sendPic
 
-init(window.location.search.substring(1))
-document.documentElement.className = 'ready'
+const roomName = window.location.search.substring(1)
+if (roomName) {
+  init(roomName)
+  document.documentElement.classList.add('ready')
+}
 
 sendButton.addEventListener('click', (event) => {
   sendText(textarea.value)
