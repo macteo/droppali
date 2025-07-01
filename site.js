@@ -138,11 +138,11 @@ function dropHandler(ev) {
   // }
 }
 
-window.dropHandler = dropHandler
+window.dropHandler = dropHandler;
 
 function dragOverHandler(ev) {
   // Prevent default behavior (Prevent file from being opened)
   ev.preventDefault();
 }
 
-window.dragOverHandler = dragOverHandler
+window.dragOverHandler = dragOverHandler;
